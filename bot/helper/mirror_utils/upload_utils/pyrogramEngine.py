@@ -116,6 +116,11 @@ class TgUploader:
 
     async def __prepare_file(self, file_, dirpath):
         if self.__lprefix:
+            if file_.startswith('www'):
+                file_ = ' '.join(file_.split()[1:])
+                file_ = file_.strip().strip("-")
+            file_ = f"<b>{file_}</b>"
+             
             cap_mono = f"{self.__lprefix} <code>{file_}</code>"
             self.__lprefix = re_sub('<.*?>', '', self.__lprefix)
             if self.__listener.seed and not self.__listener.newDir and not dirpath.endswith("splited_files_mltb"):
